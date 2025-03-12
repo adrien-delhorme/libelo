@@ -6,13 +6,17 @@
 
         <style>
             * {
-                font-family: "Helvetica Neue", Helvetica, Arial;
+                font-family: "Helvetica Neue", Helvetica, "Roboto", "Droid sans", Arial;
             }
 
             ul {
                 list-style-type: none;
                 padding-left: 0;
             }
+
+            .danger {
+                color: red;
+            }            
 
             .station-name {
                 display: block;
@@ -110,7 +114,7 @@
                                <use xlink:href="#base_bike_icon"></use>
                             </svg>
                         {% endif %}
-                        <span class="count-bike">{{ station.num_docks_available }}</span> places
+                        <span class="count-bike {% if station.num_docks_available <= 2 %}danger{% endif %}">{{ station.num_docks_available }} places</span>
                     </li>
                 </ul>
             {% endfor %}

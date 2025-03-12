@@ -1,5 +1,6 @@
 import datetime
 import requests
+import math
 
 from collections import OrderedDict
 from flask import Flask
@@ -31,7 +32,21 @@ def index():
     for k, v in info_dict.items():
         v.update(status_dict[k])
 
-    info_dict = OrderedDict(sorted(info_dict.items(), key=lambda x: x[1]['name']))
+    custom_order = (
+        "49",  # Saint-Péray République
+        "3",  # Gare
+        "2",  # Pôle bus
+        "6",  # Basse ville
+        "46",  # Maladière
+    )
+
+    def compare(pair):
+        try:
+            return custom_order.index(pair[0])
+        except ValueError:
+            return math.inf
+
+    info_dict = OrderedDict(sorted(info_dict.items(), key=compare))
 
     context = {
         'stations': info_dict,
