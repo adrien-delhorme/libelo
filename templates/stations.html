@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title_tag %}{{ bike_service.meta.name }} {{ bike_service.meta.city }}{% endblock title_tag %}
+
+{% block body %}
+  <h1>{{ bike_service.meta.name }} {{ bike_service.meta.city }}</h1>
+  <ul>
+    {% for station in stations %}
+      <li class="station {% if station.extra.uid in favorites %}favorite{% endif %}">
+        <div class="station-name">
+          {{ station.name }}
+          <button class="button-favorite" data-add-to-fav="{{ station.extra.uid }}">
+            <svg viewBox="0 0 100 100" class="icon-star">
+              <use xlink:href="#base_star_icon"></use>
+            </svg>
+          </button>
+        </div>
+        <ul class="station-properties">
+          <li>
+            {% if station.extra.ebikes %}
+              <span class="count-bike count-bike-electrical">{{ station.extra.ebikes }}</span>
+              <svg viewBox="0 0 100 100" class="icon-bike icon-bike-electrical">
+                <use xlink:href="#base_bike_icon"></use>
+              </svg>
+            {% endif %}
+            {% if station.extra.normal_bikes %}
+              <span class="count-bike count-bike-mechanical">{{ station.extra.normal_bikes }}</span> 
+              <svg viewBox="0 0 100 100" class="icon-bike icon-bike-mechanical">
+                <use xlink:href="#base_bike_icon"></use>
+              </svg>
+            {% else %}
+              <span class="count-bike count-bike-mechanical">{{ station.bikes }}</span> 
+              <svg viewBox="0 0 100 100" class="icon-bike icon-bike-mechanical">
+                <use xlink:href="#base_bike_icon"></use>
+              </svg>
+            {% endif %}
+            <span class="count-bike {% if station.free <= 1 %}danger{% endif %}">{{ station.free }} slots</span>
+          </li>
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+  <form id="id_favorite_form" action="." method="get"></form>
+  <footer>
+    <p>Last update {{ now }} - Icon "bike sharing" by Tomas Knopp from <a href="https://thenounproject.com/search/?q=city%20bike&i=1773520" target="_blank">the Noun Project</a></p>
+  </footer>
+
+  <script>
+    document.querySelectorAll("[data-add-to-fav]").forEach(button => {
+      button.addEventListener("click", (e) => toggleFavorite(e.currentTarget.dataset.addToFav))
+    })
+
+    function toggleFavorite(stationUid) {
+      const urlParams = new URLSearchParams(window.location.search)
+
+      if (!urlParams.has("fav", stationUid)) {
+        urlParams.append("fav", stationUid)
+      } else {
+        urlParams.delete("fav", stationUid)
+      }
+      window.location.href = "?" + urlParams
+    }
+  </script>
+{% endblock body %}
