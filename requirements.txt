@@ -1,2 +1,2 @@
 Flask
-pybikes
+git+https://github.com/eskerda/pybikes.git
