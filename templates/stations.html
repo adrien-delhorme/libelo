@@ -3,8 +3,14 @@
 {% block title_tag %}{{ bike_service.meta.name }} {{ bike_service.meta.city }}{% endblock title_tag %}
 
 {% block body %}
-  <h1>{{ bike_service.meta.name }} {{ bike_service.meta.city }}</h1>
-  <ul>
+  <header>
+    <h1>{{ bike_service.meta.name }} {{ bike_service.meta.city }}</h1>
+    <a href="/" title="Go to home">Home</a>
+  </header>
+  <form class="form">
+    <input type="text" id="id_station_search" class="form-control" placeholder="Search..."/>
+  </form>
+  <ul id="id_stations_list" class="stations-list">
     {% for station in stations %}
       <li class="station {% if station.extra.uid in favorites %}favorite{% endif %}">
         <div class="station-name">
@@ -40,6 +46,7 @@
       </li>
     {% endfor %}
   </ul>
+
   <form id="id_favorite_form" action="." method="get"></form>
 
   {% if favorites|length == 1 %}
@@ -61,5 +68,22 @@
       }
       window.location.href = "?" + urlParams
     }
+
+    window.addEventListener("load", () => {
+      var filter = document.getElementById("id_station_search"), // search box
+          list = document.querySelectorAll("#id_stations_list li"); // all list items
+    
+      function search() {
+        let search = filter.value.toLowerCase();
+    
+        for (let i of list) {
+          let item = i.innerHTML.toLowerCase();
+          if (item.indexOf(search) == -1) { i.classList.add("hide"); }
+          else { i.classList.remove("hide"); }
+        }
+      };
+      filter.onkeyup = search;
+      search();
+    });
   </script>
 {% endblock body %}

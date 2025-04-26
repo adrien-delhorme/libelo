@@ -60,6 +60,8 @@
           border-radius: 3px;
           background: none;
           margin-bottom: .5rem;
+          box-sizing: border-box;
+          width: 100%;
         }
       }
 
@@ -82,9 +84,20 @@
         }
       }
 
-      #id_bike_services {
-        width: 100%;
-      } 
+      .services-list {
+        a {
+          display: block;
+          padding: .5rem 1rem;
+          text-decoration: none;
+          border-bottom: solid 1px var(--color-gray);
+          color: black;
+
+          &.hide { display: none; }
+
+          &:hover { background-color: var(--color-gray); }
+        }
+      }
+
 
       ul {
         list-style-type: none;
@@ -97,6 +110,8 @@
 
       .station {
         padding-bottom: 2em;
+
+        &.hide { display: none; }
 
         .station-name {
           display: flex;
@@ -205,5 +220,10 @@
 
     {% block body %}
     {% endblock body %}
-  </body>
+
+    <footer>
+      <p>Last update {{ now }} - Icon "bike sharing" by Tomas Knopp from <a href="https://thenounproject.com/search/?q=city%20bike&i=1773520" target="_blank">the Noun Project</a></p>
+      <p>Hosted in Europe 🇪🇺</p>
+    </footer>
+ </body>
 </html>

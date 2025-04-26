@@ -6,15 +6,35 @@
     <use xlink:href="#base_bike_icon"></use>
   </svg>
 
-  <form id="id_bike_service_form" class="form" action="." method="post">
-    <label for="id_bike_service">Choose your bike service</label>
-    <select id="id_bike_services" class="form-control" name="bike_service" require>
+  <form class="form">
+    <input type="text" class="form-control" id="id_service_search" placeholder="Search...">
+    <ul id="id_services_list" class="services-list">
       {% for service in bike_services %}
-        <option value="{{ service[1]["tag"] }}">
-          {% if service[1]["meta"]["name"] %}{{ service[1]["meta"]["name"] }}{% else %}{{ service[0] }}{% endif %} ({{ service[1]["meta"]["city"] }})
-        </option>
+        <li>
+          <a href="/{{ service[1]["tag"] }}/">
+            {% if service[1]["meta"]["name"] %}{{ service[1]["meta"]["name"] }}{% else %}{{ service[0] }}{% endif %} ({{ service[1]["meta"]["city"] }}, {{ service[1]["meta"]["country"]}})
+          </a>
+        </li>
       {% endfor %}
-    </select>
-    <button type="submit" class="btn btn-block">Go</button>
+    </ul>
   </form>
+
+  <script>
+    window.addEventListener("load", () => {
+      var filter = document.getElementById("id_service_search"), // search box
+          list = document.querySelectorAll("#id_services_list a"); // all list items
+    
+      function search() {
+        let search = filter.value.toLowerCase();
+    
+        for (let i of list) {
+          let item = i.innerHTML.toLowerCase();
+          if (item.indexOf(search) == -1) { i.classList.add("hide"); }
+          else { i.classList.remove("hide"); }
+        }
+      };
+      filter.onkeyup = search;
+      search();
+    });
+  </script>
 {% endblock body %}
