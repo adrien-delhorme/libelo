@@ -1,11 +1,11 @@
-# Minimal Public Bike Share Status App
+# Mini PBS: Minimal Public Bike Sharing Status App
 
 Many <abbr title="Public Bike Share">PBS</abbr> system have an application to consult the availablity
 of bikes on stations. But sometimes I did not want to open these bloated apps just to check the status
 of my regular stations. So I made a (very) lightweight webapp to display the data from the API of
 these public bike share systems.
 
-[Open the app](https://bike.delhor.me/)
+[Open the app](https://mini-pbs.delhor.me/)
 
 ![Home page](./screenshot1.png)
 ![List page](./screenshot2.png)
