@@ -23,6 +23,29 @@
         max-width: 800px;
         margin: auto;
         padding: 0 1rem;
+        position: relative;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      @keyframes fadeout {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+      }
+
+      .alert {
+        position: fixed;
+        bottom: 1rem;
+        width: calc(100% - 2rem);
+        box-sizing: border-box;
+        padding: 1rem;
+        background-color: var(--color-favorite);
+        border-radius: 4px;
+        animation: 4s ease-out 10s 1 normal forwards fadeout;
       }
 
       .form {

@@ -41,9 +41,10 @@
     {% endfor %}
   </ul>
   <form id="id_favorite_form" action="." method="get"></form>
-  <footer>
-    <p>Last update {{ now }} - Icon "bike sharing" by Tomas Knopp from <a href="https://thenounproject.com/search/?q=city%20bike&i=1773520" target="_blank">the Noun Project</a></p>
-  </footer>
+
+  {% if favorites|length == 1 %}
+    <p class="alert">Bookmark this URL to save your favorites!</p>
+  {% endif %}
 
   <script>
     document.querySelectorAll("[data-add-to-fav]").forEach(button => {
