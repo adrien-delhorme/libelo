@@ -1,4 +1,4 @@
-# Mini PBS: Minimal Public Bike Sharing Status App
+# Mini PBS: Minimal Public Bike Status App
 
 Many <abbr title="Public Bike Share">PBS</abbr> system have an application to consult the availablity
 of bikes on stations. But sometimes I did not want to open these bloated apps just to check the status

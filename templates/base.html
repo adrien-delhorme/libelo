@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Bike sharing status</title>
+    <title>Mini Public Bike Status</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
@@ -41,6 +41,7 @@
         position: fixed;
         bottom: 1rem;
         width: calc(100% - 2rem);
+        max-width: calc(800px - 2rem);
         box-sizing: border-box;
         padding: 1rem;
         background-color: var(--color-favorite);
@@ -84,7 +85,7 @@
         }
       }
 
-      .services-list {
+      .networks-list {
         a {
           display: block;
           padding: .5rem 1rem;
@@ -222,7 +223,7 @@
     {% endblock body %}
 
     <footer>
-      <p>Last update {{ now }} - Icon "bike sharing" by Tomas Knopp from <a href="https://thenounproject.com/search/?q=city%20bike&i=1773520" target="_blank">the Noun Project</a></p>
+      <p>Data from <a href="https://api.citybik.es/v2/" target="_blank">CityBikes API</a>. Icon "bike sharing" by Tomas Knopp from <a href="https://thenounproject.com/search/?q=city%20bike&i=1773520" target="_blank">the Noun Project</a>.</p>
       <p>Hosted in Europe 🇪🇺</p>
     </footer>
  </body>

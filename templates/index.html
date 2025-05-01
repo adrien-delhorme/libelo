@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <h1>Bike sharing status</h1>
+  <h1>Mini Public Bike Status</h1>
   <svg viewBox="0 0 100 100" class="icon-bike large">
     <use xlink:href="#base_bike_icon"></use>
   </svg>
 
   <form class="form">
-    <input type="text" class="form-control" id="id_service_search" placeholder="Search...">
-    <ul id="id_services_list" class="services-list">
-      {% for service in bike_services %}
-        <li>
-          <a href="/{{ service[1]["tag"] }}/">
-            {% if service[1]["meta"]["name"] %}{{ service[1]["meta"]["name"] }}{% else %}{{ service[0] }}{% endif %} ({{ service[1]["meta"]["city"] }}, {{ service[1]["meta"]["country"]}})
+    <input type="text" class="form-control" id="id_networks_filter" placeholder="Filter by name, city or country...">
+    <ul id="id_networks_list" class="networks-list">
+      {% for network in networks %}
+          <a href="/{{ network.id }}/">
+            {{ network.name }} ({{ network.location.city }}, {{ network.location.country }})
           </a>
         </li>
       {% endfor %}
@@ -21,8 +20,8 @@
 
   <script>
     window.addEventListener("load", () => {
-      var filter = document.getElementById("id_service_search"), // search box
-          list = document.querySelectorAll("#id_services_list a"); // all list items
+      var filter = document.getElementById("id_networks_filter"), // search box
+          list = document.querySelectorAll("#id_networks_list a"); // all list items
     
       function search() {
         let search = filter.value.toLowerCase();

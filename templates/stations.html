@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block title_tag %}{{ bike_service.meta.name }} {{ bike_service.meta.city }}{% endblock title_tag %}
+{% block title_tag %}{{ network.name }} {{ network.location.city }}{% endblock title_tag %}
 
 {% block body %}
   <header>
-    <h1>{{ bike_service.meta.name }} {{ bike_service.meta.city }}</h1>
+    <h1>{{ network.name }} {{ network.location.city }}</h1>
     <a href="/" title="Go to home">Home</a>
   </header>
   <form class="form">
-    <input type="text" id="id_station_search" class="form-control" placeholder="Search..."/>
+    <input type="text" id="id_station_filter" class="form-control" placeholder="Search a station by name..."/>
   </form>
   <ul id="id_stations_list" class="stations-list">
-    {% for station in stations %}
-      <li class="station {% if station.extra.uid in favorites %}favorite{% endif %}">
+    {% for station in network.stations %}
+      <li class="station {% if station.id in favorites %}favorite{% endif %}">
         <div class="station-name">
           {{ station.name }}
-          <button class="button-favorite" data-add-to-fav="{{ station.extra.uid }}">
+          <button class="button-favorite" data-add-to-fav="{{ station.id }}">
             <svg viewBox="0 0 100 100" class="icon-star">
               <use xlink:href="#base_star_icon"></use>
             </svg>
@@ -35,12 +35,12 @@
                 <use xlink:href="#base_bike_icon"></use>
               </svg>
             {% else %}
-              <span class="count-bike count-bike-mechanical">{{ station.bikes }}</span> 
+              <span class="count-bike count-bike-mechanical">{{ station.free_bikes|default(0, true) }}</span> 
               <svg viewBox="0 0 100 100" class="icon-bike icon-bike-mechanical">
                 <use xlink:href="#base_bike_icon"></use>
               </svg>
             {% endif %}
-            <span class="count-bike {% if station.free <= 1 %}danger{% endif %}">{{ station.free }} slots</span>
+            <span class="count-bike {% if station.empty_slots|default(0, true) <= 1 %}danger{% endif %}">{{ station.empty_slots|default(0, true) }} slots</span>
           </li>
         </ul>
       </li>
@@ -58,19 +58,19 @@
       button.addEventListener("click", (e) => toggleFavorite(e.currentTarget.dataset.addToFav))
     })
 
-    function toggleFavorite(stationUid) {
+    function toggleFavorite(stationId) {
       const urlParams = new URLSearchParams(window.location.search)
 
-      if (!urlParams.has("fav", stationUid)) {
-        urlParams.append("fav", stationUid)
+      if (!urlParams.has("fav", stationId)) {
+        urlParams.append("fav", stationId)
       } else {
-        urlParams.delete("fav", stationUid)
+        urlParams.delete("fav", stationId)
       }
       window.location.href = "?" + urlParams
     }
 
     window.addEventListener("load", () => {
-      var filter = document.getElementById("id_station_search"), // search box
+      var filter = document.getElementById("id_station_filter"), // search box
           list = document.querySelectorAll("#id_stations_list li"); // all list items
     
       function search() {
