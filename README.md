@@ -1,18 +1,19 @@
 # Mini PBS: Minimal Public Bike Status App
 
+A minimal webapp to check your daily bike stations in one click and a fraction of a second.
+
 Many <abbr title="Public Bike Share">PBS</abbr> system have an application to consult the availablity
-of bikes on stations. But sometimes I did not want to open these bloated apps just to check the status
-of my regular stations. So I made a (very) lightweight webapp to display the data from the API of
-these public bike share systems.
+of bikes on stations. But these applications are often cumbersome, slow and impractical. So I made a (very) lightweight webapp to display your daily bike stations with the data of the <a href="https://api.citybik.es/v2/" target="_blank">CityBikes API</a>.
 
-[Open the app](https://mini-pbs.delhor.me/)
+![Screenshot of the app](./screenshot.png)
 
-![Home page](./screenshot1.png)
-![List page](./screenshot2.png)
+## Use
 
-## Features
+[Open the webapp](https://mini-pbs.delhor.me/)
 
-- More than 700 bike sharing systems available around the world (via [pybikes](https://github.com/eskerda/pybikes))
+The features are:
+
+- More than 700 bike sharing systems available around the world (via the <a href="https://api.citybik.es/v2/" target="_blank">CityBikes API</a>)
 - List the availability of mechanical and electrical bikes on all stations
 - Pin your regular stations to the top of the list (and bookmark your configuration)
 - Lightweight page (< 80ko), minimal UI
@@ -21,15 +22,14 @@ these public bike share systems.
 
 ## Develop
 
-The app is made with [Flask](https://flask.palletsprojects.com/en/stable/), a python web framework. It 
-is based on [pybikes](https://github.com/eskerda/pybikes) a library that provides coherent status data
-from more than 700 bike sharing systems.
+The app is made with [Flask](https://flask.palletsprojects.com/en/stable/), a Python web framework. It 
+is based on the <a href="https://api.citybik.es/v2/" target="_blank">CityBikes API</a> that provides coherent data from more than 700 bike sharing systems.
 
 ### Install
 
 ```sh
-git clone https://github.com/adrien-delhorme/libelo
-cd libelo/
+git clone https://github.com/adrien-delhorme/mini-pbs
+cd mini-pbs/
 python3 -m virtualenv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
@@ -39,5 +39,5 @@ python3 -m pip install -r requirements.txt
 
 ```sh
 source .venv/bin/activate
-python3 -m flask --app application run
+python3 -m flask run
 ```
